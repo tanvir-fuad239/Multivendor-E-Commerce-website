@@ -134,7 +134,7 @@
 
     getAllCategories();
     
-    // not yet be sloved
+     
     function getAllHeroSliders(){
 
         $.ajax({
