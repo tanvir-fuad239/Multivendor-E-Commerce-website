@@ -6,7 +6,7 @@
                 @foreach ($heroSliders as $heroSlider )
                     <div class="single-hero-slider single-animation-wrap" style="background-image: url({{ asset($heroSlider->image) }})">
                         <div class="slider-content">
-                            <h1 class="display-6 mb-40">
+                            <h1 class="display-2 mb-40">
 
                                 @php
                                     $firstPart = substr($heroSlider->title, 0, 20);
