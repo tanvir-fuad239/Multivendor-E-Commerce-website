@@ -134,50 +134,7 @@
 
     getAllCategories();
     
-    // not yet be sloved
-    function getAllHeroSliders(){
-
-        $.ajax({
-
-            url: '{{ route('frontend.all-hero-sliders') }}',
-            type: 'GET',
-            dataType: 'json',
-            success: function(response){
-                
-                if(response.heroSlider != null){
-
-                    let output        = '';
-                    let sliderContent = '';
-                    $.each(response.heroSlider, function(key,slider){
-                        let sliderImage = window.location.origin + slider.image;
-                        sliderContent += `
-                                        <div class="single-hero-slider single-animation-wrap" style="background-image: url('${ sliderImage }')">
-                                            <div class="slider-content">
-                                                <h1 class="display-2 mb-40">
-                                                    ${ slider.title }
-                                                </h1>
-                                            </div>
-                                        </div>
-                                        `
-                    });
- 
-                    $("#slider").append(sliderContent);
-
-         
-                }
-
-            },
-            error: function(err){
-                console.log(err);
-            }
-
-        });
-
-    }
-
-    getAllHeroSliders();
-
-
+    
     function getBanners(){
 
         $.ajax({

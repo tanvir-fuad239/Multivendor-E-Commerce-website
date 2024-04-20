@@ -14,8 +14,9 @@ class FrontendController extends Controller
     public function index(){
 
         $showCategoryButton = true;
+        $heroSliders = HeroSlider::select(['title','image'])->oldest()->take(2)->get();
         
-        return view('frontend.index', compact('showCategoryButton'));
+        return view('frontend.index', compact('showCategoryButton', 'heroSliders'));
 
     }
 
@@ -32,10 +33,7 @@ class FrontendController extends Controller
         
     }
 
-    public function getAllHeroSliders(){
-        $heroSlider = HeroSlider::select(['title','image'])->oldest()->take(2)->get();
-        return response()->json(["heroSlider" => $heroSlider]);
-    }
+ 
 
     public function getAllBanners(){
         $banners = Banner::oldest()->take(3)->get();
