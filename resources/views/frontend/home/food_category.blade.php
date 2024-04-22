@@ -7,11 +7,12 @@
         <!--End nav-tabs-->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
-                <div class="row product-grid-4">
+                <div class="row product-grid-4" id="food">
 
 
+                    {{-- dynamic content here --}}
 
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                    {{-- <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
@@ -55,9 +56,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
-
-
 
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".2s">
@@ -103,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".3s">
                             <div class="product-img-action-wrap">
@@ -148,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".4s">
                             <div class="product-img-action-wrap">
@@ -190,8 +188,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
-
 
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".5s">
@@ -236,8 +232,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--end product card-->
+                    </div> --}}
                 
                 </div>
                 <!--End product-grid-4-->

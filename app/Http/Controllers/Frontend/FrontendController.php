@@ -43,6 +43,25 @@ class FrontendController extends Controller
         return response()->json(['banner' => $banners]);
     }
 
+    public function getFoodCategories(){
+
+        $foodCategories         =       Category::with(['subcategories' => function($query){
+                                            $query->with(['products' => function($query){
+                                                $query->where('status', 1)
+                                                ->latest()
+                                                ->take(5)
+                                                ->with('user');
+                                            }]);
+                                        }])
+                                        ->where('category_name', 'Food')
+                                        ->firstOrFail();
+
+ 
+
+
+        return response()->json(['foodCategories' => $foodCategories]);
+    }
+
     // display all category 
     public function categoryList(){
 

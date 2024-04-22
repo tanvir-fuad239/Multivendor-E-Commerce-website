@@ -10,6 +10,7 @@ use App\Models\multi_imgs;
 use App\Models\ProductTag;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
+use App\Models\User;
 
 
 class Product extends Model
@@ -52,5 +53,9 @@ class Product extends Model
 
     public function subcategory(){
         return $this->belongsTo(SubCategory::class);
+    }
+
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'vendor_id');
     }
 }

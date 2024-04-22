@@ -55,7 +55,7 @@
 
                                             @php
                                                $subCategory = App\Models\SubCategory::where('category_id', $categoryWithProduct->id)->first(); 
-                                               $vendor = App\Models\User::where('id', $product->vendor_id)->where("role", "vendor")->first();
+                                            //    $vendor = App\Models\User::where('id', $product->vendor_id)->where("role", "vendor")->first();
                                             @endphp
 
                                             <span>{{ $subCategory->subcategory_name }}</span>
@@ -68,7 +68,7 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">By <a href="{{ route('frontend.vendor.details') }}">{{ showTitle($vendor->name, 18) }}</a></span>
+                                            <span class="font-small text-muted">By <a href="{{ route('frontend.vendor.details') }}">{{ showTitle($product->user->name, 18) }}</a></span>
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">

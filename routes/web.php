@@ -38,6 +38,7 @@ Route::controller(FrontendController::class)->name('frontend.')->group(function(
 
     Route::get('/', 'index')->name('home');
     Route::get('/all-categories', 'getAllCategories')->name('all-categories');
+    Route::get('/food-categories', 'getFoodCategories')->name('food-categories');
     Route::get('/all-banners', 'getAllBanners')->name('all-banners');
     Route::get('/category-list', 'categoryList')->name('category.all');
     Route::get('/product-list/{category_id}/', 'productList')->name('product.all');
