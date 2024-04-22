@@ -186,7 +186,6 @@
             dataType: 'json',
             success: function(response){
                 
-                console.log(response.foodCategories);
                 if(response.foodCategories != null){
                     
                     let productInfo = '';
