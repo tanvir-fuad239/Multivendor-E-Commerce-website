@@ -73,8 +73,10 @@
 
                             {{-- long description  --}}
                             <div class="mb-3">
+
+								{{-- here tinymice plugin used before using id="mytextarea". but tinymice was not working properly --}}
 								<label for="long_descp" class="form-label">Long Description</label>
-                                <textarea id="mytextarea" name="long_descp" class="form-control" placeholder="Enter long description"></textarea>
+                                <textarea name="long_descp" rows="10" cols="30" class="form-control" placeholder="Enter long description"></textarea>
 							</div>
                             
                             {{-- product image  --}}

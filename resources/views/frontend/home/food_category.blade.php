@@ -1,7 +1,7 @@
 <section class="product-tabs section-padding position-relative">
     <div class="container">
         <div class="section-title style-2 wow animate__animated animate__fadeIn">
-            <h3>Computer Category </h3>
+            <h3>Food Category </h3>
         
         </div>
         <!--End nav-tabs-->
