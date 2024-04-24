@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\HeroSlider;
 use App\Models\Banner;
+use App\Models\Product;
 
 class FrontendController extends Controller
 {
@@ -60,6 +61,23 @@ class FrontendController extends Controller
 
 
         return response()->json(['foodCategories' => $foodCategories]);
+    }
+
+    public function getAllHotProducts(){
+
+        $categories             =       ['hot_deals', 'special_offer', 'featured', 'special_deals'];
+        $result                 =       [];
+        
+        foreach ($categories as $category) {
+            $result[$category] =       Product::where($category, 1)
+                                        ->where('status', 1)
+                                        ->latest()
+                                        ->take(3)
+                                        ->get(['id','product_name','product_price','discount_price','product_image']);
+        }
+    
+        return $result;
+
     }
 
     // display all category 

@@ -260,6 +260,183 @@
 
     getFoodCategories();
 
+    function getAllHotProducts(){
+
+        $.ajax({
+
+            url: '{{ route('frontend.hot-products') }}',
+            type: 'GET',
+            dataType: 'json',
+            success: function(result){
+                
+                if(result != null){
+
+                    if(result.hot_deals){
+
+                        let hotDeals       = '';
+                        let hotDealsImage  = '';
+
+
+                        $.each(result.hot_deals, function(key,hot){
+
+                            hotDealsImage   =  window.location.origin + '/uploads/product/images/' + hot.product_image;
+
+                            hotDeals += `
+                                     <article class="row align-items-center hover-up">
+                                        <figure class="col-md-4 mb-0">
+                                            <a href=""><img src="${ hotDealsImage }" alt="" /></a>
+                                        </figure>
+                                        <div class="col-md-8 mb-0">
+                                            <h6>
+                                                <a href="">${ hot.product_name }</a>
+                                            </h6>
+                                            <div class="product-rate-cover">
+                                                <div class="product-rate d-inline-block">
+                                                    <div class="product-rating" style="width: 90%"></div>
+                                                </div>
+                                                <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                            </div>
+                                            <div class="product-price">
+                                                <span>&#2547;${ hot.discount_price }</span>
+                                                <span class="old-price">&#2547;${ hot.product_price }</span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                        `
+
+                        });
+
+                        $("#hotDeals").append(hotDeals);
+                    }
+
+                    if(result.special_offer){
+
+                        let specialOffers      = '';
+                        let specialOfferImage  = '';
+
+
+                        $.each(result.special_offer, function(key,specialOffer){
+
+                            specialOfferImage   =  window.location.origin + '/uploads/product/images/' + specialOffer.product_image;
+
+                            specialOffers += `
+                                    <article class="row align-items-center hover-up">
+                                        <figure class="col-md-4 mb-0">
+                                            <a href=""><img src="${ specialOfferImage }" alt="" /></a>
+                                        </figure>
+                                        <div class="col-md-8 mb-0">
+                                            <h6>
+                                                <a href="">${ specialOffer.product_name }</a>
+                                            </h6>
+                                            <div class="product-rate-cover">
+                                                <div class="product-rate d-inline-block">
+                                                    <div class="product-rating" style="width: 90%"></div>
+                                                </div>
+                                                <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                            </div>
+                                            <div class="product-price">
+                                                <span>&#2547;${ specialOffer.discount_price }</span>
+                                                <span class="old-price">&#2547;${ specialOffer.product_price }</span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                        `
+
+                        });
+
+                        $("#specialOffer").append(specialOffers);
+                    }
+
+                    if(result.featured){
+
+                        let featuredProducts      = '';
+                        let featuredProductImage  = '';
+
+
+                        $.each(result.featured, function(key,featuredProduct){
+
+                            featuredProductImage   =  window.location.origin + '/uploads/product/images/' + featuredProduct.product_image;
+
+                            featuredProducts += `
+                                    <article class="row align-items-center hover-up">
+                                        <figure class="col-md-4 mb-0">
+                                            <a href=""><img src="${ featuredProductImage }" alt="" /></a>
+                                        </figure>
+                                        <div class="col-md-8 mb-0">
+                                            <h6>
+                                                <a href="">${ featuredProduct.product_name }</a>
+                                            </h6>
+                                            <div class="product-rate-cover">
+                                                <div class="product-rate d-inline-block">
+                                                    <div class="product-rating" style="width: 90%"></div>
+                                                </div>
+                                                <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                            </div>
+                                            <div class="product-price">
+                                                <span>&#2547;${ featuredProduct.discount_price }</span>
+                                                <span class="old-price">&#2547;${ featuredProduct.product_price }</span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                        `
+
+                        });
+
+                        $("#featuredProduct").append(featuredProducts);
+                    }
+
+                    if(result.special_deals){
+
+                        let specialDeals      = '';
+                        let specialDealImage  = '';
+
+
+                        $.each(result.special_deals, function(key,specialDeal){
+
+                            specialDealImage   =  window.location.origin + '/uploads/product/images/' + specialDeal.product_image;
+
+                            specialDeals += `
+                                    <article class="row align-items-center hover-up">
+                                        <figure class="col-md-4 mb-0">
+                                            <a href=""><img src="${ specialDealImage }" alt="" /></a>
+                                        </figure>
+                                        <div class="col-md-8 mb-0">
+                                            <h6>
+                                                <a href="">${ specialDeal.product_name }</a>
+                                            </h6>
+                                            <div class="product-rate-cover">
+                                                <div class="product-rate d-inline-block">
+                                                    <div class="product-rating" style="width: 90%"></div>
+                                                </div>
+                                                <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                            </div>
+                                            <div class="product-price">
+                                                <span>&#2547;${ specialDeal.discount_price }</span>
+                                                <span class="old-price">&#2547;${ specialDeal.product_price }</span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                        `
+
+                        });
+
+                        $("#specialDeals").append(specialDeals);
+                    }
+
+                }
+               
+
+            },
+            error: function(err){
+                console.log(err);
+            }
+
+
+        });
+
+    }
+
+    getAllHotProducts();
 
 </script>
 
