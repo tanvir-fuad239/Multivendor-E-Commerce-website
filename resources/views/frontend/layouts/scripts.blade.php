@@ -443,7 +443,7 @@
 {{-- toastr js --}}
 <script>
 
-    @if(Session::has('message'))
+    @if(Session::has('message'))cl
     toastr.options =
     {
         "closeButton" : true,

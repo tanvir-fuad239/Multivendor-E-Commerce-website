@@ -16,13 +16,22 @@ class FrontendController extends Controller
 
         $showCategoryButton     =       true;
         $heroSliders            =       HeroSlider::select(['title','image'])->oldest()->take(2)->get();
-        $featuredCategories     =       Category::with(['products' => function ($query){
+
+        $featuredCategories     =       Category::query()
+                                        ->with(['products' => function ($query){
                                             $query->where("status", 1);
                                         }])
                                         ->latest()
                                         ->get();
+
+ 
+
+        $featuredProducts        =       Product::query()
+                                        ->where('featured', 1)
+                                        ->latest()
+                                        ->get();
         
-        return view('frontend.index', compact('showCategoryButton', 'heroSliders','featuredCategories'));
+        return view('frontend.index', compact('showCategoryButton', 'heroSliders','featuredCategories','featuredProducts'));
 
     }
 
