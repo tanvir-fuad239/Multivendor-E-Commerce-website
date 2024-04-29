@@ -438,6 +438,128 @@
 
     getAllHotProducts();
 
+    function displayCategoriesWithProducts(){
+
+        $.ajax({
+
+            url: '{{ route('frontend.display-categories') }}',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response){
+
+                if(response.categoriesWithProducts != null){
+
+                    let categoryList  = '';
+                    let tab_pane      = '';
+                    let finalOutput   = '';
+                    var categoryBaseUrl         =   '{{ route('frontend.product.all', ['category_id' => 'NULL']) }}'
+                    
+                    $.each(response.categoriesWithProducts, function(key,category){
+
+                        categoryList += `   <li class="nav-item" role="presentation">
+                                                <button class="nav-link ${ key == 0 ? 'active' : '' }" id="nav-tab-${ key + 1 }" data-bs-toggle="tab" data-bs-target="#category-${ key + 1 }" type="button" role="tab" aria-controls="category-${ key + 1 }" aria-selected="${ key == 0 ? 'true' : 'false' }">${ category.category_name }</button>
+                                            </li>
+                                        `
+                        
+                        let productList  = '';
+                        let productImage = '';
+                        let categoryUrl          = categoryBaseUrl.replace('NULL', category.id);
+                        $.each(category.products, function(key,product){
+
+                         
+                            
+                            productImage   =  window.location.origin + '/uploads/product/images/' + product.product_image;
+                            productList += `
+                                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
+                                                    <div class="product-img-action-wrap">
+                                                        <div class="product-img product-img-zoom">
+                                                            <a href="shop-product-right.html">
+                                                                <img class="default-img" src="${ productImage }" alt="${ productImage }" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="product-action-1">
+                                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                                        </div>
+                                                        <div class="product-badges product-badges-position product-badges-mrg">
+                                                            <span class="hot">Hot</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-content-wrap">
+                                                        <div class="product-category">
+                                                            <a href="${ categoryUrl }">${ category.category_name }</a>
+                                                        </div>
+                                                        <h2><a href="shop-product-right.html">${ product.product_name }</a></h2>
+                                                        <div class="product-rate-cover">
+                                                            <div class="product-rate d-inline-block">
+                                                                <div class="product-rating" style="width: 90%"></div>
+                                                            </div>
+                                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">${product.user.name.length > 20 ? product.user.name.substring(0, 20) + '...' : product.user.name}</a></span>
+                                                            
+                                                        </div>
+                                                        <div class="product-card-bottom">
+                                                            <div class="product-price">
+                                                                <span>&#2547;${ product.discount_price }</span>
+                                                                <p><span class="old-price">&#2547;${ product.product_price }</span></p>
+                                                                
+                                                            </div>
+                                                            <div class="add-cart">
+                                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end product card-->
+                                            `
+
+                        });
+
+                        tab_pane += `
+                                    <div class="tab-pane fade ${ key == 0 ? 'show active' : '' }" id="category-${ key + 1 }" role="tabpanel" aria-labelledby="category-${ key + 1 }">
+                                        <div class="row product-grid-4">
+                                            
+                                            ${ productList }
+                                         
+                                        </div>
+                                        
+                                    </div>
+                                    `
+
+                    });
+                    
+                    finalOutput += `   <div class="section-title style-2 wow animate__animated              animate__fadeIn">
+                                            <h3> New Products </h3>
+                                            <ul class="nav nav-tabs links" id="myTab" role="tablist">
+                                                ${ categoryList }
+                                            </ul>
+                                        </div>
+
+                                        <div class="tab-content" id="myTabContent">
+                                            ${ tab_pane }
+                                        </div>
+                                    `
+              
+                    $("#productTabs").append(finalOutput);
+                }
+
+            },
+            error: function(err){
+                console.log(err);
+            }
+
+
+        });
+
+    }
+
+    displayCategoriesWithProducts();
+
 </script>
 
 {{-- toastr js --}}

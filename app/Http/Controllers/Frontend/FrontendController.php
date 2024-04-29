@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\HeroSlider;
 use App\Models\Banner;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -72,6 +73,23 @@ class FrontendController extends Controller
         return response()->json(['foodCategories' => $foodCategories]);
     }
 
+    public function displayCategoriesWithProducts(){
+
+        $categories             =       Category::latest()->take(7)->get();
+    
+        $categoriesWithProducts =       $categories->map(function ($category) {
+                                            $category->products = $category->products()
+                                                ->where('status', 1)
+                                                ->latest()
+                                                ->take(10)
+                                                ->with('user:id,name')
+                                                ->get();
+                                            return $category;
+                                        });
+    
+        return response()->json(['categoriesWithProducts' => $categoriesWithProducts]);
+    }
+    
     public function getAllHotProducts(){
 
         $categories             =       ['hot_deals', 'special_offer', 'featured', 'special_deals'];
@@ -130,5 +148,15 @@ class FrontendController extends Controller
         $showCategoryButton = false; 
 
         return view('frontend.vendor_details', compact('showCategoryButton'));
+    }
+
+    // product details
+    public function productDetails(string $product_id){
+
+        $showCategoryButton = false;
+        $product  = Product::findOrFail($product_id);
+        
+        return view('frontend.product_details', compact('showCategoryButton','product'));
+
     }
 }

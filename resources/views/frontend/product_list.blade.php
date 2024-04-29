@@ -60,7 +60,7 @@
 
                                             <span>{{ $subCategory->subcategory_name }}</span>
                                         </div>
-                                        <h2><a href="shop-product-right.html">{{ $product->product_name }}</a></h2>
+                                        <h2><a href="{{ route('frontend.product-details', $product->id) }}">{{ $product->product_name }}</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>

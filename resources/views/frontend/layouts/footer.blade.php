@@ -104,13 +104,13 @@
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
                         <div class="logo mb-30">
                             <a href="{{ route('frontend.home') }}" class="mb-15"><img src="{{ asset('frontend') }}/assets/imgs/theme/logo.svg" alt="logo" /></a>
-                            <p class="font-lg text-heading">Awesome grocery store website template</p>
+                            <p class="font-lg text-heading">Awesome grocery store</p>
                         </div>
                         <ul class="contact-infor">
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-email-2.svg" alt="" /><strong>Email:</strong><span>sale@Nest.com</span></li>
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-clock.svg" alt="" /><strong>Hours:</strong><span>10:00 - 18:00, Mon - Sat</span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>House 20,Road 3,Mirpur-1,Dhaka-1216</span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call Us:</strong><span>(+880) - 1672111566 </span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-email-2.svg" alt="" /><strong>Email:</strong><span>tanvir23anan@gmail.com</span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-clock.svg" alt="" /><strong>Hours:</strong><span>09:00 - 06:00, Sun - Thurs</span></li>
                         </ul>
                     </div>
                 </div>
@@ -174,13 +174,13 @@
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
                         <div class="logo mb-30">
                             <a href="{{ route('frontend.home') }}" class="mb-15"><img src="{{ asset('frontend') }}/assets/imgs/theme/logo.svg" alt="logo" /></a>
-                            <p class="font-lg text-heading">Awesome grocery store website template</p>
+                            <p class="font-lg text-heading">Awesome grocery store</p>
                         </div>
                         <ul class="contact-infor">
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-email-2.svg" alt="" /><strong>Email:</strong><span>sale@Nest.com</span></li>
-                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-clock.svg" alt="" /><strong>Hours:</strong><span>10:00 - 18:00, Mon - Sat</span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>House 20,Road 3,Mirpur-1,Dhaka-1216</span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call Us:</strong><span>(+880) - 1672111566 </span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-email-2.svg" alt="" /><strong>Email:</strong><span>tanvir23anan@gmail.com</span></li>
+                            <li><img src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-clock.svg" alt="" /><strong>Hours:</strong><span>09:00 - 06:00, Sun - Thurs</span></li>
                         </ul>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
                 <div class="footer-bottom"></div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6">
-                <p class="font-sm mb-0">&copy; 2023<strong class="text-brand">Nest</strong> - HTML Ecommerce Template <br />All rights reserved</p>
+                <p class="font-sm mb-0">&copy; {{ date('Y') }}<strong class="text-brand">Nest</strong> - HTML Ecommerce Template <br />All rights reserved</p>
             </div>
             <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                  
