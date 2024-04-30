@@ -192,17 +192,19 @@
                     let productImage = '';
                     let badge = ['hot','sale','new','premium','-14%'];
                     let badgeKey = 0;
-            
+                    let ProductBaseUrl         =   '{{ route('frontend.product-details', ['product_id' => 'NULL']) }}';
+ 
                     $.each(response.foodCategories.subcategories, function(key, subcategory){                
                         $.each(subcategory.products, function(key, product){
 
+                            let ProductUrl = ProductBaseUrl.replace('NULL', product.id);
                             productImage  = window.location.origin + '/uploads/product/images/' + product.product_image;
                             productInfo += `
                                             <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                                                 <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="shop-product-right.html">
+                                                            <a href="${ ProductUrl }">
                                                                 <img class="default-img" src="${ productImage }" alt="${ productImage }"/>
                                                             </a>
                                                         </div>
@@ -219,7 +221,7 @@
                                                         <div class="product-category">
                                                             ${ subcategory.subcategory_name }
                                                         </div>
-                                                        <h2><a href="shop-product-right.html">${ product.product_name }</a></h2>
+                                                        <h2><a href="${ ProductUrl }">${ product.product_name }</a></h2>
                                                         <div class="product-rate-cover">
                                                             <div class="product-rate d-inline-block">
                                                                 <div class="product-rating" style="width: 90%"></div>
@@ -271,24 +273,27 @@
                 
                 if(result != null){
 
+                    let ProductBaseUrl         =   '{{ route('frontend.product-details', ['product_id' => 'NULL']) }}';
+
                     if(result.hot_deals){
 
                         let hotDeals       = '';
                         let hotDealsImage  = '';
-
-
+                     
                         $.each(result.hot_deals, function(key,hot){
 
                             hotDealsImage   =  window.location.origin + '/uploads/product/images/' + hot.product_image;
 
+                            let ProductUrl = ProductBaseUrl.replace('NULL', hot.id);
+
                             hotDeals += `
                                      <article class="row align-items-center hover-up">
                                         <figure class="col-md-4 mb-0">
-                                            <a href=""><img src="${ hotDealsImage }" alt="" /></a>
+                                            <a href="${ ProductUrl }"><img src="${ hotDealsImage }" alt="" /></a>
                                         </figure>
                                         <div class="col-md-8 mb-0">
                                             <h6>
-                                                <a href="">${ hot.product_name }</a>
+                                                <a href="${ ProductUrl }">${ hot.product_name }</a>
                                             </h6>
                                             <div class="product-rate-cover">
                                                 <div class="product-rate d-inline-block">
@@ -318,15 +323,16 @@
                         $.each(result.special_offer, function(key,specialOffer){
 
                             specialOfferImage   =  window.location.origin + '/uploads/product/images/' + specialOffer.product_image;
+                            let ProductUrl = ProductBaseUrl.replace('NULL', specialOffer.id);
 
                             specialOffers += `
                                     <article class="row align-items-center hover-up">
                                         <figure class="col-md-4 mb-0">
-                                            <a href=""><img src="${ specialOfferImage }" alt="" /></a>
+                                            <a href="${ ProductUrl }"><img src="${ specialOfferImage }" alt="" /></a>
                                         </figure>
                                         <div class="col-md-8 mb-0">
                                             <h6>
-                                                <a href="">${ specialOffer.product_name }</a>
+                                                <a href="${ ProductUrl }">${ specialOffer.product_name }</a>
                                             </h6>
                                             <div class="product-rate-cover">
                                                 <div class="product-rate d-inline-block">
@@ -356,15 +362,17 @@
                         $.each(result.featured, function(key,featuredProduct){
 
                             featuredProductImage   =  window.location.origin + '/uploads/product/images/' + featuredProduct.product_image;
+                            let ProductUrl = ProductBaseUrl.replace('NULL', featuredProduct.id);
+
 
                             featuredProducts += `
                                     <article class="row align-items-center hover-up">
                                         <figure class="col-md-4 mb-0">
-                                            <a href=""><img src="${ featuredProductImage }" alt="" /></a>
+                                            <a href="${ ProductUrl }"><img src="${ featuredProductImage }" alt="" /></a>
                                         </figure>
                                         <div class="col-md-8 mb-0">
                                             <h6>
-                                                <a href="">${ featuredProduct.product_name }</a>
+                                                <a href="${ ProductUrl }">${ featuredProduct.product_name }</a>
                                             </h6>
                                             <div class="product-rate-cover">
                                                 <div class="product-rate d-inline-block">
@@ -394,15 +402,16 @@
                         $.each(result.special_deals, function(key,specialDeal){
 
                             specialDealImage   =  window.location.origin + '/uploads/product/images/' + specialDeal.product_image;
+                            let ProductUrl = ProductBaseUrl.replace('NULL', specialDeal.id);
 
                             specialDeals += `
                                     <article class="row align-items-center hover-up">
                                         <figure class="col-md-4 mb-0">
-                                            <a href=""><img src="${ specialDealImage }" alt="" /></a>
+                                            <a href="${ ProductUrl }"><img src="${ specialDealImage }" alt="" /></a>
                                         </figure>
                                         <div class="col-md-8 mb-0">
                                             <h6>
-                                                <a href="">${ specialDeal.product_name }</a>
+                                                <a href="${ ProductUrl }">${ specialDeal.product_name }</a>
                                             </h6>
                                             <div class="product-rate-cover">
                                                 <div class="product-rate d-inline-block">
@@ -452,7 +461,8 @@
                     let categoryList  = '';
                     let tab_pane      = '';
                     let finalOutput   = '';
-                    var categoryBaseUrl         =   '{{ route('frontend.product.all', ['category_id' => 'NULL']) }}'
+                    var categoryBaseUrl         =   '{{ route('frontend.product.all', ['category_id' => 'NULL']) }}';
+                    let ProductBaseUrl         =   '{{ route('frontend.product-details', ['product_id' => 'NULL']) }}';
                     
                     $.each(response.categoriesWithProducts, function(key,category){
 
@@ -467,14 +477,14 @@
                         $.each(category.products, function(key,product){
 
                          
-                            
+                            let ProductUrl = ProductBaseUrl.replace('NULL', product.id);
                             productImage   =  window.location.origin + '/uploads/product/images/' + product.product_image;
                             productList += `
                                             <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                                                 <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="shop-product-right.html">
+                                                            <a href="${ ProductUrl }">
                                                                 <img class="default-img" src="${ productImage }" alt="${ productImage }" />
                                                             </a>
                                                         </div>
@@ -491,7 +501,7 @@
                                                         <div class="product-category">
                                                             <a href="${ categoryUrl }">${ category.category_name }</a>
                                                         </div>
-                                                        <h2><a href="shop-product-right.html">${ product.product_name }</a></h2>
+                                                        <h2><a href="${ ProductUrl }">${ product.product_name }</a></h2>
                                                         <div class="product-rate-cover">
                                                             <div class="product-rate d-inline-block">
                                                                 <div class="product-rating" style="width: 90%"></div>
@@ -559,6 +569,82 @@
     }
 
     displayCategoriesWithProducts();
+
+    function relatedProduct(){
+         
+        var product_id =  document.getElementById('related-products').getAttribute('data-product-id');
+        var category_id = document.getElementById('related-products').getAttribute('data-category-id');
+
+        $.ajax({
+
+            url : '/related-product/' + product_id + '/' + category_id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response){
+                
+                if(response.relatedProducts != null){
+
+                    let productRelated      = '';
+                    let productImage = '';
+                    let relatedProductBaseUrl         =   '{{ route('frontend.product-details', ['product_id' => 'NULL']) }}';
+
+                    if(response.relatedProducts.products.length  == 0){
+                        productRelated += '<p>No Product Available.</p>'
+                    }
+
+                    else{
+
+                        $.each(response.relatedProducts.products, function(key,product){
+
+                            productImage          = window.location.origin + '/uploads/product/images/' + product.product_image; 
+                            let relatedProductUrl = relatedProductBaseUrl.replace('NULL', product.id);
+                            productRelated += `
+                                        <div class="col-lg-3 col-md-4 col-12 col-sm-6 ${ key == 3 ? 'd-lg-block d-none' : '' }">
+                                            <div class="product-cart-wrap hover-up">
+                                                <div class="product-img-action-wrap">
+                                                    <div class="product-img product-img-zoom">
+                                                        <a href="${ relatedProductUrl }" tabindex="0">
+                                                            <img class="default-img" src="${ productImage }" alt="${ productImage }" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-action-1">
+                                                        <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
+                                                        <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
+                                                        <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
+                                                    </div>
+                                                    <div class="product-badges product-badges-position product-badges-mrg">
+                                                        <span class="hot">Hot</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content-wrap">
+                                                    <h2><a href="${ relatedProductUrl }" tabindex="0">${ product.product_name }</a></h2>
+                                                    <div class="rating-result" title="90%">
+                                                        <span> </span>
+                                                    </div>
+                                                    <div class="product-price">
+                                                        <span>&#2547;${ product.discount_price }</span>
+                                                        <span class="old-price">&#2547;${ product.product_price }</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        `
+
+                        });
+                    }
+
+                    $("#related-products").append(productRelated);
+
+                } 
+            },
+            error: function(err){
+                console.log(err);
+            }
+
+        });
+    }
+
+    relatedProduct();
 
 </script>
 

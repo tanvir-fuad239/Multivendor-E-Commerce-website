@@ -36,7 +36,7 @@
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
+                                            <a href="{{ route('frontend.product-details', $product->id) }}">
                                                 <img class="default-img" src="{{ getImage($product->product_image, "product") }}" alt="" height="100px"/>
                                                 <img class="hover-img" src="{{ getImage($product->product_image, "product") }}" alt="" height="100px"/>
                                             </a>
@@ -52,13 +52,7 @@
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-
-                                            @php
-                                               $subCategory = App\Models\SubCategory::where('category_id', $categoryWithProduct->id)->first(); 
-                                            //    $vendor = App\Models\User::where('id', $product->vendor_id)->where("role", "vendor")->first();
-                                            @endphp
-
-                                            <span>{{ $subCategory->subcategory_name }}</span>
+                                            <span>{{ $product->subCategory->subcategory_name }}</span>
                                         </div>
                                         <h2><a href="{{ route('frontend.product-details', $product->id) }}">{{ $product->product_name }}</a></h2>
                                         <div class="product-rate-cover">

@@ -8,8 +8,8 @@ use App\Models\Category;
 use App\Models\HeroSlider;
 use App\Models\Banner;
 use App\Models\Product;
-use Illuminate\Support\Facades\DB;
-
+use App\Models\ProductSize;
+use App\Models\ProductTag;
 class FrontendController extends Controller
 {
     // home page 
@@ -107,6 +107,22 @@ class FrontendController extends Controller
 
     }
 
+    public function relatedProduct(string $product_id, $category_id){
+        
+        $relatedProducts        =       Category::query()
+                                        ->with(['products' => function($query) use($product_id){
+                                            $query->where('id', '!=', $product_id)
+                                                  ->where('status', 1)
+                                                  ->latest()
+                                                  ->take(4);
+                                        }])
+                                        ->where('id', $category_id)
+                                        ->firstOrFail(); 
+        return response()->json([
+            'relatedProducts' => $relatedProducts
+        ]);   
+    }
+
     // display all category 
     public function categoryList(){
 
@@ -155,6 +171,7 @@ class FrontendController extends Controller
 
         $showCategoryButton = false;
         $product  = Product::findOrFail($product_id);
+ 
         
         return view('frontend.product_details', compact('showCategoryButton','product'));
 
