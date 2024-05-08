@@ -48,6 +48,15 @@ Route::controller(FrontendController::class)->name('frontend.')->group(function(
     Route::get('/product-details/{product_id}/', 'productDetails')->name('product-details');
     Route::get('/vendor-details', 'vendorDetails')->name('vendor.details');
 
+    // cart
+    Route::get('/add-to-cart/{product_id}/', 'addToCart')->name('add-to-cart');
+    Route::get('/view-cart', 'viewCart')->name('view-cart');
+    Route::get('/clear-cart', 'clearCart')->name('clear-cart');
+    Route::get('/remove-product/{product_id}/', 'removeProductFromCart')->name('remove-product');
+    Route::get('/product-increase/{product_id}/', 'productIncrese')->name('product-increase');
+    Route::get('/product-decrease/{product_id}/', 'productDecrese')->name('product-decrease');
+
+
 });
 
 

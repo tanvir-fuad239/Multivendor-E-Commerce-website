@@ -27,10 +27,11 @@ class FrontendController extends Controller
 
  
 
-        $featuredProducts        =       Product::query()
+        $featuredProducts       =       Product::query()
                                         ->where('featured', 1)
                                         ->latest()
                                         ->get();
+
         
         return view('frontend.index', compact('showCategoryButton', 'heroSliders','featuredCategories','featuredProducts'));
 
@@ -96,7 +97,7 @@ class FrontendController extends Controller
         $result                 =       [];
         
         foreach ($categories as $category) {
-            $result[$category] =       Product::where($category, 1)
+            $result[$category]  =       Product::where($category, 1)
                                         ->where('status', 1)
                                         ->latest()
                                         ->take(3)
@@ -174,6 +175,111 @@ class FrontendController extends Controller
  
         
         return view('frontend.product_details', compact('showCategoryButton','product'));
+
+    }
+
+    // add to cart 
+    public function addToCart($productId){
+        
+        try{
+            $product =  Product::findOrFail($productId); 
+            $cart    =  session()->get('cart', []);
+    
+            if(isset($cart[$productId])){
+                $cart[$productId]['quantity']++;
+            }
+    
+            else{
+                $cart[$productId] = [
+                    'id'        =>      $productId,
+                    'category'  =>      $product->category->category_name,
+                    'name'      =>      $product->product_name,
+                    'price'     =>      $product->discount_price,
+                    'quantity'  =>      1,
+                    'image'     =>      $product->product_image
+                ] ;
+            }
+    
+            session()->put('cart', $cart);
+            
+            return back()->with('message', "Product added to the cart successfully.");
+        }
+        catch(\Exception $e){
+            return back()->with('error', "Product is failed to add to the cart.");
+        }
+       
+    }
+
+    // view cart 
+    public function viewCart(){
+        
+        $showCategoryButton = false;
+
+        $cart               =   session()->get('cart', []);
+        $totalProducts      =   array_sum(array_column($cart, 'quantity'));
+        $subTotal           =   0;
+        $shippingCharge     =   350;
+
+        foreach($cart as $item){
+            $subTotal       +=  $item['price'] * $item['quantity'];
+        }
+
+        return view('frontend.view_cart', compact('showCategoryButton','cart','totalProducts','subTotal','shippingCharge'));
+
+    }
+
+    // clear the cart 
+    public function clearCart(){
+        session()->forget('cart');
+        return back()->with('message', 'Your cart has been cleared.');
+    }
+
+    // remove product from cart
+    public function removeProductFromCart($productId){
+
+        $cart = session()->get('cart');
+
+        if(isset($cart[$productId])){
+            unset($cart[$productId]);
+        }
+
+        session()->put('cart', $cart);
+
+        return back()->with('message', 'Product has been deleted.');
+    }
+
+    // cart product increase
+    public function productIncrese($productId){
+        
+        $cart = session()->get('cart');
+
+        if(isset($cart[$productId])){
+            $cart[$productId]['quantity']++;
+            session()->put('cart', $cart);
+
+        }
+
+        return back()->with('message', 'Product has been increased');
+
+    }
+
+    // cart product decrease
+    public function productDecrese($productId){
+    
+        $cart = session()->get('cart');
+
+        if(isset($cart[$productId])){
+            if($cart[$productId]['quantity'] <= 1){
+                unset($cart[$productId]);
+            }
+            else{
+                $cart[$productId]['quantity']--;
+            }
+
+            session()->put('cart', $cart);
+        }
+
+        return back()->with('message', 'Product has been decreased');
 
     }
 }

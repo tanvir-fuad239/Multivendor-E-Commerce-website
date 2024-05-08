@@ -9,10 +9,12 @@
                     <div class="col-xl-3 col-lg-4">
                         <div class="header-info">
                             <ul>
-                                
-                                <li><a href="page-account.html">My Cart</a></li>
+                                @auth
+                                <li><a href="{{ route('frontend.view-cart') }}">My Cart</a></li>
                                 <li><a href="shop-wishlist.html">Checkout</a></li>
                                 <li><a href="shop-order.html">Order Tracking</a></li>
+                                @endauth
+                         
                             </ul>
                         </div>
                     </div>
@@ -76,11 +78,17 @@
                                     <a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="shop-cart.html">
+                                    <a class="mini-cart-icon" href="{{ route('frontend.view-cart') }}">
                                         <img alt="Nest" src="{{ asset('frontend') }}/assets/imgs/theme/icons/icon-cart.svg" />
-                                        <span class="pro-count blue">2</span>
+
+                                        @php
+                                            $cart           = session()->get('cart', []);
+                                            $totalItems     = array_sum(array_column($cart, 'quantity'));
+                                        @endphp
+
+                                        <span class="pro-count blue">{{ $totalItems }}</span>
                                     </a>
-                                    <a href="shop-cart.html"><span class="lable">Cart</span></a>
+                                    <a href="{{ route('frontend.view-cart') }}"><span class="lable">Cart</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                         <ul>
                                             <li>
@@ -113,7 +121,7 @@
                                                 <h4>Total <span>$4000.00</span></h4>
                                             </div>
                                             <div class="shopping-cart-button">
-                                                <a href="shop-cart.html" class="outline">View cart</a>
+                                                <a href="{{ route('frontend.view-cart') }}" class="outline">view cart</a>
                                                 <a href="shop-checkout.html">Checkout</a>
                                             </div>
                                         </div>

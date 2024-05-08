@@ -54,7 +54,7 @@
                                         <div class="product-category">
                                             <span>{{ $product->subCategory->subcategory_name }}</span>
                                         </div>
-                                        <h2><a href="{{ route('frontend.product-details', $product->id) }}">{{ $product->product_name }}</a></h2>
+                                        <h2><a href="{{ route('frontend.product-details', $product->id) }}">{{ showTitle($product->product_name, 16) }}</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
@@ -70,7 +70,7 @@
                                                 <span class="old-price">{{ getAmount($product->product_price) }}</span>
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="{{ route('frontend.add-to-cart', $product->id) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
                                             </div>
                                         </div>
                                     </div>

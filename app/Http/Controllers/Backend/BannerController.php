@@ -97,7 +97,7 @@ class BannerController extends Controller
             return redirect()->route('admin.banners.index')->with('message', 'Banner updated successfully');
         }
         else{
-            return back()->with('error',"<Banner></Banner> couldn't be updated.Please try again later.");
+            return back()->with('error',"Banner couldn't be updated.Please try again later.");
         }
     }
 
