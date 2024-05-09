@@ -201,11 +201,16 @@ class FrontendController extends Controller
             }
     
             session()->put('cart', $cart);
+
+            $productCount = array_sum(array_column($cart, 'quantity'));
             
-            return back()->with('message', "Product added to the cart successfully.");
+            return response()->json([
+                'count'     =>      $productCount,
+                'success'   =>      'Product added to cart successfully.'
+            ]);
         }
         catch(\Exception $e){
-            return back()->with('error', "Product is failed to add to the cart.");
+            return response()->json('error', 'Product failed to add to the cart.');
         }
        
     }
@@ -245,7 +250,21 @@ class FrontendController extends Controller
 
         session()->put('cart', $cart);
 
-        return back()->with('message', 'Product has been deleted.');
+        $subTotal           =       0;
+        $shippingCharge     =       350;
+
+        foreach($cart as $item){
+            $subTotal       +=      $item['price'] * $item['quantity'];
+        }
+
+        $total              =       $subTotal + $shippingCharge;
+
+        return response()->json([
+            'success'           =>      'Product has been removed.',
+            'count'             =>      array_sum(array_column($cart, 'quantity')),
+            'subTotal'          =>      $subTotal,
+            'total'             =>      $total
+        ]);
     }
 
     // cart product increase

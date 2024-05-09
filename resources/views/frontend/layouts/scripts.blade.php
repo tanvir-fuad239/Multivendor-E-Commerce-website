@@ -1,5 +1,5 @@
   <!-- Preloader Start -->
-  <div id="preloader-active">
+  {{-- <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="preloader-inner position-relative">
             <div class="text-center">
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Vendor JS-->
   <script src="{{ asset('frontend') }}/assets/js/vendor/modernizr-3.6.0.min.js"></script>
   <script src="{{ asset('frontend') }}/assets/js/vendor/jquery-3.6.0.min.js"></script>
@@ -518,7 +518,7 @@
                                                                 
                                                             </div>
                                                             <div class="add-cart">
-                                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                                <a class="add add_to_cart" href="javascript:void(0) data-id="${product.id}"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -647,6 +647,138 @@
 
 </script>
 
+<script>
+
+    document.addEventListener('DOMContentLoaded', function(){
+
+        $(".add_to_cart").on('click', function(){
+            let productId = $(this).data('id');
+            
+            $.ajax({
+
+                url: '{{ url("/add-to-cart") }}/' + productId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+                    
+                    $('#count').text(response.count);
+
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.success(response.success);
+
+
+                },
+                error: function(err){
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.error(response.error);
+                }
+
+            });
+        });
+
+        $('.remove-product').on('click', function(){
+
+            let productId = $(this).data('id');
+            
+            $.ajax({
+
+                url: '{{ url("/remove-product") }}/' + productId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+
+                    $('a[data-id="' + productId + '"]').closest('tr').remove();
+                    $('#count').text(response.count);
+                    $('#sub_total').text('৳' + response.subTotal);
+                    $("#total").text('৳' + response.total);
+
+                    if(response.count == 1){
+                        $(".product-count").html('There is <span class="text-brand">' + response.count + '</span> product in your cart')
+                    }
+                    else{
+                        $(".product-count").html('There are <span class="text-brand">' + response.count + '</span> products in your cart')
+                    }                  
+
+                    if(response.count > 0){
+                        $(".display-clear-cart").show();
+                        $(".display-cart-table").show();
+                        $(".cart-empty-text").hide();
+                    }
+                    else{
+                        $(".display-clear-cart").hide();
+                        $(".display-cart-table").hide();
+                        $(".cart-empty-text").show();
+                    }
+                    
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.success(response.success);
+
+
+                },
+                error: function(err){
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.error("Product couldn't be deleted. Please try again later.");
+                }
+
+            });
+
+        })
+
+        $('.product_increase').on('click', function(){
+
+            let productId = $(this).data('id');
+            
+            $.ajax({
+
+                url: '{{ url("/product-increase") }}/' + productId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+
+                },
+                error: function(err){
+                    console.log(err);
+                }
+
+            });
+
+        })
+
+        $('.product_decrease').on('click', function(){
+
+            let productId = $(this).data('id');
+            alert(productId)
+
+        })
+
+    });
+
+</script>
+
 {{-- toastr js --}}
 <script>
 
@@ -673,6 +805,8 @@
     @endif
 
 </script> 
+
+
 
 
 </body>

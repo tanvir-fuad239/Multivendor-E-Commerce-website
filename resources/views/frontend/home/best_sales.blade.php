@@ -57,7 +57,7 @@
                                                 </div>
                                                 <span class="font-xs text-heading"> Sold: 90/120</span>
                                             </div>
-                                            <a href="shop-cart.html" class="btn w-100 hover-up"><i class="fi-rs-shopping-cart mr-5"></i>Add To Cart</a>
+                                            <a href="javascript:void(0)" class="btn w-100 hover-up add_to_cart" data-id="{{ $product->id }}"><i class="fi-rs-shopping-cart mr-5"></i>Add To Cart</a>
                                         </div>
                                     </div>
                                 

@@ -16,10 +16,10 @@
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Your Cart</h1>
                 <div class="d-flex justify-content-between">
-                    <h6 class="text-body">There {{ $totalProducts == 1 ? 'is' : 'are' }}<span class="text-brand"> {{ $totalProducts }}</span> product{{ $totalProducts == 1 ? '' : 's'}} in your cart</h6>    
+                    <h6 class="text-body product-count">There {{ $totalProducts == 1 ? 'is' : 'are' }}<span class="text-brand"> {{ $totalProducts }}</span> product{{ $totalProducts == 1 ? '' : 's'}} in your cart</h6>    
 
                     @if($totalProducts > 0)
-                        <h6 class="text-body"><a href="{{ route('frontend.clear-cart') }}" class="text-muted"><i class="fi-rs-trash mr-5"></i>Clear Cart</a></h6>
+                        <h6 class="text-body display-clear-cart"><a href="{{ route('frontend.clear-cart') }}" class="text-muted"><i class="fi-rs-trash mr-5"></i>Clear Cart</a></h6>
                     @endif
                     
                 </div>
@@ -27,7 +27,7 @@
         </div>
 
         @if($totalProducts > 0)
-            <div class="row">
+            <div class="row display-cart-table">
                 <div class="col-lg-12">
                     <div class="table-responsive shopping-summery">
                         <table class="table table-wishlist">
@@ -66,18 +66,18 @@
                                         <td class="text-center detail-info" data-title="Stock">
                                             <div class="detail-extralink mr-15">
                                                 <div class="detail-qty border radius">
-                                                    <div class="mb-1"><a href="{{ route('frontend.product-increase', $item['id']) }}"><i class="fa-solid fa-angle-up"></i></a></div>
+                                                    <div class="mb-1"><a href="javascript:void(0)" class="product_increase" data-id="{{ $item['id'] }}"><i class="fa-solid fa-angle-up"></i></a></div>
 
                                                     <span class="text-dark">{{ $item['quantity'] }}</span>
                                          
-                                                    <div class="mt-1"><a href="{{ route('frontend.product-decrease', $item['id']) }}"><i class="fa-solid fa-angle-down"></i></a></div>
+                                                    <div class="mt-1"><a href="javascript:void(0)" class="product_decrease" data-id="{{ $item['id'] }}"><i class="fa-solid fa-angle-down"></i></a></div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="price" data-title="Price">
                                             <h4 class="text-brand">&#2547;{{ $item['price'] * $item['quantity'] }}</h4>
                                         </td>
-                                        <td class="action text-center" data-title="Remove"><a href="{{ route('frontend.remove-product', $item['id']) }}" class="text-body"><i class="fi-rs-trash"></i></a></td>
+                                        <td class="action text-center" data-title="Remove"><a href="javascript:void(0)" data-id="{{ $item['id'] }}" class="text-body remove-product"><i class="fi-rs-trash"></i></a></td>
                                     </tr>
 
                                 @endforeach
@@ -119,7 +119,7 @@
                                             <h6 class="text-muted">Subtotal</h6>
                                         </td>
                                         <td class="cart_total_amount">
-                                            <h4 class="text-brand text-end">&#2547;{{ $subTotal }}</h4>
+                                            <h4 class="text-brand text-end" id="sub_total">&#2547;{{ $subTotal }}</h4>
                                         </td>
                                     </tr>
                                     <tr>
@@ -142,7 +142,7 @@
                                             <h6 class="text-muted">Total</h6>
                                         </td>
                                         <td class="cart_total_amount">
-                                            <h4 class="text-brand text-end">&#2547;{{ $subTotal + $shippingCharge }}</h4>
+                                            <h4 class="text-brand text-end" id="total">&#2547;{{ $subTotal + $shippingCharge }}</h4>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -158,6 +158,9 @@
                 </div>
                     
             </div>
+
+            {{-- it renders through ajax --}}
+            <p class="text-center cart-empty-text" style="display: none;">Your cart is empty.</p>
         @else
             <p class="text-center">Your cart is empty.</p>
         @endif

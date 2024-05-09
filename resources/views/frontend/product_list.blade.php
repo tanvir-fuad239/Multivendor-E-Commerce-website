@@ -70,7 +70,7 @@
                                                 <span class="old-price">{{ getAmount($product->product_price) }}</span>
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="{{ route('frontend.add-to-cart', $product->id) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
+                                                <a class="add add_to_cart" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
                                             </div>
                                         </div>
                                     </div>

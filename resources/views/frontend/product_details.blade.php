@@ -94,11 +94,12 @@
                                         </ul>
                                     </div>
                                     <div class="detail-extralink mb-50">
-                                        <div class="product-extra-link2">
-                                            <button type="submit" class="button button-add-to-cart"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                        </div>
+                                            {{-- <button type="submit" class="button button-add-to-cart add_to_cart"><i class="fi-rs-shopping-cart"></i>Add to cart</button> --}}
+                                            <a class="button add_to_cart me-2" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fi-rs-shopping-cart mr-5 fs-6"></i>Add to cart</a>
+
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up me-2" href="shop-wishlist.html"><i class="fi-rs-heart fs-6"></i></a>
+
+                                            <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle fs-6"></i></a>
                                     </div>
                                     <div class="font-xs">
                                         <ul class="mr-50 float-start">

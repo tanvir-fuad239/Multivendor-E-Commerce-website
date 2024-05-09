@@ -1145,6 +1145,7 @@ button.submit:hover, button[type='submit']:hover {
 
 .btn:hover, .button:hover {
   background-color: #FDC040;
+  color: white;
 }
 
 .btn.btn-sm, .button.btn-sm {
@@ -12400,4 +12401,7 @@ footer .hotline img {
 }
 /*# sourceMappingURL=main.css.map */
 
- 
+.detail-extralink .button::hover{
+  background-color: black !important;
+  color: white !important;
+}
