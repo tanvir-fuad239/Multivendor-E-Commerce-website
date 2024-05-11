@@ -169,6 +169,7 @@
 
         // for hero slider active inactive toggle
         document.addEventListener('DOMContentLoaded', function () {
+            
             $('.toggle-status').on('click', function() {
                 var sliderId = $(this).data('id');
                 var status = $(this).data('status');

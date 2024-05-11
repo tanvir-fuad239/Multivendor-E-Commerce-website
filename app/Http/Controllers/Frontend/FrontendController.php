@@ -202,7 +202,7 @@ class FrontendController extends Controller
     
             session()->put('cart', $cart);
 
-            $productCount = array_sum(array_column($cart, 'quantity'));
+            $productCount = $this->totalProducts($cart);
             
             return response()->json([
                 'count'     =>      $productCount,
@@ -221,13 +221,11 @@ class FrontendController extends Controller
         $showCategoryButton = false;
 
         $cart               =   session()->get('cart', []);
-        $totalProducts      =   array_sum(array_column($cart, 'quantity'));
-        $subTotal           =   0;
+        $totalProducts      =   $this->totalProducts($cart);
+        $subTotal           =   $this->subTotal($cart);
         $shippingCharge     =   350;
 
-        foreach($cart as $item){
-            $subTotal       +=  $item['price'] * $item['quantity'];
-        }
+     
 
         return view('frontend.view_cart', compact('showCategoryButton','cart','totalProducts','subTotal','shippingCharge'));
 
@@ -250,20 +248,17 @@ class FrontendController extends Controller
 
         session()->put('cart', $cart);
 
-        $subTotal           =       0;
+        $subTotal           =       $this->subTotal($cart);
+        $totalProducts      =       $this->totalProducts($cart);
         $shippingCharge     =       350;
-
-        foreach($cart as $item){
-            $subTotal       +=      $item['price'] * $item['quantity'];
-        }
 
         $total              =       $subTotal + $shippingCharge;
 
         return response()->json([
-            'success'           =>      'Product has been removed.',
-            'count'             =>      array_sum(array_column($cart, 'quantity')),
-            'subTotal'          =>      $subTotal,
-            'total'             =>      $total
+            'success'       =>      'Product has been removed.',
+            'count'         =>      $totalProducts,
+            'subTotal'      =>      $subTotal,
+            'total'         =>      $total
         ]);
     }
 
@@ -277,8 +272,23 @@ class FrontendController extends Controller
             session()->put('cart', $cart);
 
         }
+        
+        $totalProducts          =       $this->totalProducts($cart);
+        $productQuantity        =       $cart[$productId]['quantity'];
+        $productSubTotal        =       $cart[$productId]['quantity'] * $cart[$productId]['price'];
+        $subTotal               =       $this->subTotal($cart);
+        $shippingCharge         =       350;
 
-        return back()->with('message', 'Product has been increased');
+        $total                  =       $subTotal + $shippingCharge;
+        
+        return response()->json([
+            'success'           =>      'Product has been increased.',
+            'count'             =>      $totalProducts,
+            'qty'               =>      $productQuantity,
+            'productSubTotal'   =>      $productSubTotal,
+            'subTotal'          =>      $subTotal,
+            'total'             =>      $total
+        ]);
 
     }
 
@@ -288,17 +298,64 @@ class FrontendController extends Controller
         $cart = session()->get('cart');
 
         if(isset($cart[$productId])){
+
             if($cart[$productId]['quantity'] <= 1){
                 unset($cart[$productId]);
+                $message = "Product has been removed";
             }
+
             else{
                 $cart[$productId]['quantity']--;
+                $message = "Product has been decreased";
+
             }
 
             session()->put('cart', $cart);
+
+            $totalProducts          =       $this->totalProducts($cart);
+            $subTotal               =       $this->subTotal($cart);
+            $shippingCharge         =       350;
+    
+            $total                  =       $subTotal + $shippingCharge;
+
+            $responseData = [
+                'success'           =>      $message,
+                'count'             =>      $totalProducts,
+                'subTotal'          =>      $subTotal,
+                'total'             =>      $total,
+            ];
+    
+            if (isset($cart[$productId])) {
+                $responseData += [
+                    'qty' => $cart[$productId]['quantity'],
+                    'productSubTotal' => $cart[$productId]['price'] * $cart[$productId]['quantity'],
+                ];
+            } 
+            
+            else {
+                $responseData['qty'] = null;
+            }
+    
+            return response()->json($responseData);
+         
         }
 
-        return back()->with('message', 'Product has been decreased');
+    }
 
+    // calculate the total products in the cart
+    private function totalProducts($cart){
+        return array_sum(array_column($cart, 'quantity'));
+    }
+
+    // calculate the subtotal of all products
+    private function subTotal($cart){
+
+        $subTotal       =   0;
+
+        foreach($cart as $item){
+            $subTotal   +=  $item['price'] * $item['quantity'];
+        }
+
+        return $subTotal;
     }
 }

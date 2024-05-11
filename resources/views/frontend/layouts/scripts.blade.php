@@ -236,7 +236,7 @@
                                                                 <span class="old-price">&#2547;${ product.product_price }</span>
                                                             </div>
                                                             <div class="add-cart">
-                                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                                <a class="add add add_to_cart_through_ajax" href="javascript:void(0)" data-id="${ product.id }"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -518,7 +518,7 @@
                                                                 
                                                             </div>
                                                             <div class="add-cart">
-                                                                <a class="add add_to_cart" href="javascript:void(0) data-id="${product.id}"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                                <a class="add add_to_cart_through_ajax" href="javascript:void(0)" data-id="${product.id}"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -653,7 +653,7 @@
 
         $(".add_to_cart").on('click', function(){
             let productId = $(this).data('id');
-            
+
             $.ajax({
 
                 url: '{{ url("/add-to-cart") }}/' + productId,
@@ -746,7 +746,7 @@
 
             });
 
-        })
+        });
 
         $('.product_increase').on('click', function(){
 
@@ -758,23 +758,141 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(response){
+                    
+                    $('.product-count').html('There are <span class="text-brand">' + response.count + '</span> products in your cart');
+                    $('#count').text(response.count);
+                    $('.product_qty_' + productId).text(response.qty);
+                    $('.product_subtotal_' + productId).text('৳' + response.productSubTotal);
+                    $('#sub_total').text('৳' + response.subTotal)
+                    $('#total').text('৳' + response.total);
+
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.success(response.success);
+
 
                 },
                 error: function(err){
-                    console.log(err);
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.error("Product couldn't be increased. Please try again later.");
                 }
 
             });
 
-        })
+        });
 
         $('.product_decrease').on('click', function(){
 
             let productId = $(this).data('id');
-            alert(productId)
+            
+            $.ajax({
 
-        })
+                url: '{{ url("/product-decrease") }}/' + productId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+                    
+                    let productText = response.count === 1 ? 'product' : 'products';
 
+                    $('.product-count').html(`There ${response.count === 1 ? 'is' : 'are'} <span class="text-brand">${response.count}</span> ${productText} in your cart`);
+ 
+                    if (response.qty != null) {
+                        $(`.product_qty_${productId}`).text(response.qty);
+                        $(`.product_subtotal_${productId}`).html(`&#2547;${response.productSubTotal}`);
+                    } else {
+                        $('a[data-id="' + productId + '"]').closest('tr').remove();
+                    }
+
+                    if (response.count > 0) {
+                        $(".display-clear-cart, .display-cart-table").show();
+                        $(".cart-empty-text").hide();
+                    } else {
+                        $(".display-clear-cart, .display-cart-table").hide();
+                        $(".cart-empty-text").show();
+                    }
+
+    
+                    $('#count').text(response.count);
+                    $('#sub_total').html(`&#2547;${response.subTotal}`)
+                    $('#total').html(`&#2547;${response.total}`);
+
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.success(response.success);
+
+
+                },
+
+                error: function(err){
+                    toastr.options =
+                    {
+                        closeButton : true,
+                        progressBar : true,
+                        positionClass: 'toast-top-right', 
+                        timeOut: 3000 
+                    }
+                    toastr.error("Product couldn't be decreased. Please try again later.");
+                }
+
+            });
+
+        });
+    });
+
+    
+    // add to cart functionality for dynamically rendered content through ajax
+    $(document).on('click', '.add_to_cart_through_ajax', function() {
+
+        let productId = $(this).data('id');
+
+        $.ajax({
+
+            url: '{{ url("/add-to-cart") }}/' + productId,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response){
+                
+                $('#count').text(response.count);
+
+                toastr.options =
+                {
+                    closeButton : true,
+                    progressBar : true,
+                    positionClass: 'toast-top-right', 
+                    timeOut: 3000 
+                }
+                toastr.success(response.success);
+
+
+            },
+            error: function(err){
+                toastr.options =
+                {
+                    closeButton : true,
+                    progressBar : true,
+                    positionClass: 'toast-top-right', 
+                    timeOut: 3000 
+                }
+                toastr.error(response.error);
+            }
+
+        });
     });
 
 </script>

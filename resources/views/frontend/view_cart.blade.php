@@ -68,14 +68,16 @@
                                                 <div class="detail-qty border radius">
                                                     <div class="mb-1"><a href="javascript:void(0)" class="product_increase" data-id="{{ $item['id'] }}"><i class="fa-solid fa-angle-up"></i></a></div>
 
-                                                    <span class="text-dark">{{ $item['quantity'] }}</span>
+                                                    <span class="text-dark product_qty_{{ $item['id'] }}">{{ $item['quantity'] }}</span>
                                          
                                                     <div class="mt-1"><a href="javascript:void(0)" class="product_decrease" data-id="{{ $item['id'] }}"><i class="fa-solid fa-angle-down"></i></a></div>
+
+                                                    {{-- <div class="mt-1"><a href="{{ route('frontend.product-decrease', $item['id'] ) }}" class="product_decrease" data-id="{{ $item['id'] }}"><i class="fa-solid fa-angle-down"></i></a></div> --}}
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="price" data-title="Price">
-                                            <h4 class="text-brand">&#2547;{{ $item['price'] * $item['quantity'] }}</h4>
+                                            <h4 class="text-brand product_subtotal_{{ $item['id'] }}">&#2547;{{ $item['price'] * $item['quantity'] }}</h4>
                                         </td>
                                         <td class="action text-center" data-title="Remove"><a href="javascript:void(0)" data-id="{{ $item['id'] }}" class="text-body remove-product"><i class="fi-rs-trash"></i></a></td>
                                     </tr>
