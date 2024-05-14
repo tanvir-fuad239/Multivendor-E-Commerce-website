@@ -8,7 +8,8 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\HeroSliderController;
-use  App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\CuponController;
 
 // admin with middleware
 Route::middleware(['auth', 'role:admin'])->group(function(){
@@ -97,8 +98,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('/admin/')->name('admin.')->gr
     Route::get('slider/status/{id}/', [HeroSliderController::class, 'sliderToggle'])->name('slder-toggle');
 });
 
-// banner
+
 Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('/admin/')->group(function(){
+
+    // banner
     Route::resource('banners', BannerController::class);
+    // cupon
+    Route::resource('cupons', CuponController::class);
+    Route::get('cupon-toggle/{cupon_id}/', [CuponController::class, 'cuponToggle'])->name('cupon-toggle');
+
 });
+
+ 
+
 

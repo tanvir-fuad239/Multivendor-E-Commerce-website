@@ -20,6 +20,9 @@
 	<script src="{{ asset('backend') }}/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+    {{-- axios cdn --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     {{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> --}}
     
  
@@ -218,6 +221,55 @@
                 });
                 
             });
+        });
+
+        // for cupon active inactive toggle 
+        $(document).on('click', '.cupon-toggle', function(){
+
+            let cuponId = $(this).data('id');
+            let status  = $(this).data('status');
+            
+            axios.get('{{ url("/admin/cupon-toggle") }}/' + cuponId)
+                .then(function(response){
+                     
+                    if(response.data.status == 1){
+
+                        $('a[data-id="' + cuponId +  '"]').html('<i class="fas fa-toggle-on fs-2"></i>').data('status', 1);
+
+                        Swal.fire({
+                                title: 'Success!',
+                                text: 'Cupon has been activated',
+                                icon: 'success',
+                                confirmButtonText: 'OK',
+                                timer: 2000
+                        });
+
+                    }
+                    else{
+                        $('a[data-id="' + cuponId +  '"]').html('<i class="fas fa-toggle-off fs-2"></i>').data('status', 0);
+
+                        Swal.fire({
+                                title: 'Success!',
+                                text: 'Cupon has been deactivated',
+                                icon: 'success',
+                                confirmButtonText: 'OK',
+                                timer: 2000
+                        });
+                    }
+
+                })
+                .catch(function(response){
+
+                    let error = response.data.error;
+                    Swal.fire({
+                                title: 'Error!',
+                                text: error,
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                                timer: 2000
+                        });
+                });
+
         });
 
     </script>

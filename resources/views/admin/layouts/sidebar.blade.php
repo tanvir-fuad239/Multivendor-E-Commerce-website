@@ -101,7 +101,7 @@
 
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="fa-solid fa-sliders fs-6"></i></i>
+                <div class="parent-icon"><i class="fa-solid fa-sliders fs-6"></i>
                 </div>
                 <div class="menu-title">Hero Slider</div>
             </a>
@@ -115,7 +115,7 @@
 
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="fa-solid fa-sliders fs-6"></i></i>
+                <div class="parent-icon"><i class="fa-solid fa-flag fs-6"></i>
                 </div>
                 <div class="menu-title">Banner</div>
             </a>
@@ -123,6 +123,20 @@
                 <li> <a href="{{ route('admin.banners.create') }}"><i class="bx bx-right-arrow-alt"></i>Add Banner</a>
                 </li>
                 <li> <a href="{{ route('admin.banners.index') }}"><i class="bx bx-right-arrow-alt"></i>All Banners</a>
+                </li>
+            </ul>
+        </li> 
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="fa-solid fa-ticket"></i>
+                </div>
+                <div class="menu-title">Cupon</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('admin.cupons.create') }}"><i class="bx bx-right-arrow-alt"></i>Add Cupon</a>
+                </li>
+                <li> <a href="{{ route('admin.cupons.index') }}"><i class="bx bx-right-arrow-alt"></i>All Cupons</a>
                 </li>
             </ul>
         </li> 

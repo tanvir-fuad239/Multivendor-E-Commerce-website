@@ -192,7 +192,6 @@ class FrontendController extends Controller
             else{
                 $cart[$productId] = [
                     'id'        =>      $productId,
-                    'category'  =>      $product->category->category_name,
                     'name'      =>      $product->product_name,
                     'price'     =>      $product->discount_price,
                     'quantity'  =>      1,
