@@ -56,6 +56,9 @@ Route::controller(FrontendController::class)->name('frontend.')->group(function(
     Route::get('/product-increase/{product_id}/', 'productIncrese')->name('product-increase');
     Route::get('/product-decrease/{product_id}/', 'productDecrese')->name('product-decrease');
 
+    // cupon
+    Route::post('/apply-cupon', 'applyCupon')->name('apply-cupon');
+
 
 });
 

@@ -10,6 +10,9 @@ use App\Models\Banner;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\ProductTag;
+use App\Models\Cupon;
+use Carbon\Carbon;
+
 class FrontendController extends Controller
 {
     // home page 
@@ -224,8 +227,6 @@ class FrontendController extends Controller
         $subTotal           =   $this->subTotal($cart);
         $shippingCharge     =   350;
 
-     
-
         return view('frontend.view_cart', compact('showCategoryButton','cart','totalProducts','subTotal','shippingCharge'));
 
     }
@@ -356,5 +357,65 @@ class FrontendController extends Controller
         }
 
         return $subTotal;
+    }
+
+    // apply cupon
+    public function applyCupon(Request $request){
+        
+        $cupon              =           Cupon::query()
+                                            ->where('code', $request->coupon)
+                                            ->where('status',1)
+                                            ->first();
+
+        $shippingCharge     =       350;
+
+        // check coupon code is exists to the database
+        if(!$cupon){
+            return response()->json([
+                'error' => 'Invalid Coupon'
+            ]);
+        }
+
+        $now = Carbon::now();
+        $validFrom          =           Carbon::createFromFormat('Y-m-d H:i:s',$cupon->valid_from);
+        $expireAt           =           Carbon::createFromFormat('Y-m-d H:i:s',$cupon->expires_at);
+
+        // check the current date is in the range of coupon validation date
+        if($now->lt($validFrom)){
+            return response()->json([
+                'validFrom' => 'Coupon is not valid yet.'
+            ]);
+        }
+
+        if($now->gt($expireAt)){
+            return response()->json([
+                'expireAt'  =>  'Coupon has been expired.'
+            ]);
+        }
+
+        // check the minimum amount to apply cupon discount
+        $subTotal           =           $this->subTotal(session()->get('cart', []));
+        
+        if($subTotal < $cupon->minimum_amount){
+            return response()->json([
+                'minAmount' =>  'Your minimum order amount is &#2547;' . number_format($cupon->minimum_amount) . ' to apply this coupon.'
+            ]);
+        }
+
+        if($cupon->type == 'fixed'){
+            $discount           =       number_format($cupon->amount);
+            $total              =       ($subTotal - $discount) + $shippingCharge;
+        }
+
+        else{
+            $discount           =       number_format(($cupon->minimum_amount * $cupon->amount)/100);
+            $total              =       ($subTotal - $discount) + $shippingCharge;
+        }
+
+        return response()->json([
+            'success'   =>      'true',
+            'discount'  =>      $discount,
+            'total'     =>      $total
+        ]);
     }
 }

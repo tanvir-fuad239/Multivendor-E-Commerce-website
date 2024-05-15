@@ -93,25 +93,27 @@
 
                     <div class="row mt-50">
 
-                            <div class="col-lg-5">
-                            <div class="p-40">
+                        <div class="col-lg-5">
+                            <div class="p-40" id="cupon-container">
                                 <h4 class="mb-10">Apply Coupon</h4>
                                 <p class="mb-30"><span class="font-lg text-muted">Using A Promo Code?</p>
-                                <form action="#">
+                                <form id="couponForm">
                                     <div class="d-flex justify-content-between">
-                                        <input class="font-medium mr-15 coupon" name="Coupon" placeholder="Enter Your Coupon">
-                                        <button class="btn"><i class="fi-rs-label mr-10"></i>Apply</button>
+                                        <input class="font-medium mr-15 coupon" name="coupon" id="coupon" placeholder="Enter Your Coupon">
+                                        <button class="btn" id="cuponButton"><i class="fi-rs-label mr-10"></i>Apply</button>
                                     </div>
                                 </form>
+                                <strong class="text-danger ms-1" id="cupon-error"></strong>
+                                <div id="preloader" class="spinner-border spinner-border-sm d-none" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
                             </div>
                         </div>
 
 
                         <div class="col-lg-7">
                                 <div class="divider-2 mb-30"></div>
-                        
-
-
+                    
                             <div class="border p-md-4 cart-totals ml-30">
                         <div class="table-responsive">
                             <table class="table no-border">
@@ -123,22 +125,30 @@
                                         <td class="cart_total_amount">
                                             <h4 class="text-brand text-end" id="sub_total">&#2547;{{ $subTotal }}</h4>
                                         </td>
+                                     
                                     </tr>
+                                    
                                     <tr>
-                                        <td scope="col" colspan="2">
-                                            <div class="divider-2 mt-10 mb-10"></div>
+                                        <td class="cart_total_label">
+                                            <h6 class="text-muted">Discount</h6>
                                         </td>
+                                        <td class="cart_total_amount">
+                                            <h4 class="text-brand text-end" id="discount">&#2547;0</h4>
+                                        </td>
+                                   
                                     </tr>
+                                    
                                     <tr>
                                         <td class="cart_total_label">
                                             <h6 class="text-muted">Shipping</h6>
                                         </td>
                                         <td class="cart_total_amount">
-                                            <h5 class="text-brand text-end">&#2547;{{ $shippingCharge }}</h4</td> </tr> <tr>
-                                        <td scope="col" colspan="2">
-                                            <div class="divider-2 mt-10 mb-10"></div>
-                                        </td>
-                                    </tr>
+                                            <h5 class="text-brand text-end">&#2547;{{ $shippingCharge }}</h4>
+                                        </td> 
+                                         
+                                    </tr>  
+                                    
+                                   
                                     <tr>
                                         <td class="cart_total_label">
                                             <h6 class="text-muted">Total</h6>

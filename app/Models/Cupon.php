@@ -11,4 +11,5 @@ class Cupon extends Model
 
     protected $table        = 'cupons';
     protected $guarded      = [];
+    
 }

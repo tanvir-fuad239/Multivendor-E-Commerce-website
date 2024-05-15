@@ -856,6 +856,7 @@
             });
 
         });
+
     });
 
     
@@ -897,6 +898,67 @@
 
         });
     });
+
+    // apply coupon 
+    document.addEventListener('DOMContentLoaded', function(){
+    
+        document.getElementById('couponForm').addEventListener('submit', function(e){
+
+            e.preventDefault();
+
+            let cuponButton = document.getElementById('cuponButton');
+            let preloader   = document.getElementById('preloader')
+
+            cuponButton.disabled = true;
+            preloader.classList.remove('d-none');
+            
+            let couponCode = document.getElementById('coupon').value;
+            const route = '{{ route('frontend.apply-cupon') }}';
+        
+            axios.post(route, {
+                coupon: couponCode
+            })
+            .then(function(response){
+                
+                if(response.data.error){
+                    $("#cupon-error").text(response.data.error);
+                    
+                    preloader.classList.add('d-none');
+                    cuponButton.disabled = false;
+                }
+                if(response.data.validFrom){
+                    $("#cupon-error").text(response.data.validFrom);
+
+                    preloader.classList.add('d-none');
+                    cuponButton.disabled = false;
+                }
+                if(response.data.expireAt){
+                    $("#cupon-error").text(response.data.expireAt);
+
+                    preloader.classList.add('d-none');
+                    cuponButton.disabled = false;
+                }
+                if(response.data.minAmount){
+                    $("#cupon-error").html(response.data.minAmount);
+
+                    preloader.classList.add('d-none');
+                    cuponButton.disabled = false;
+                }
+                if(response.data.success){
+                    $("#discount").html(`&#2547; ${response.data.discount}`)
+                    $("#total").html(`&#2547; ${response.data.total}`)
+                    $("#cupon-container").html('');
+                }
+
+            })
+            .catch(function(err){
+                console.error(err)
+            })
+
+        });
+
+    });
+    
 
 </script>
 
