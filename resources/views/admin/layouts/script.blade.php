@@ -185,13 +185,13 @@
                         if(response.status) {
                             $('a[data-id="' + sliderId + '"]').html('<i class="fas fa-toggle-on fs-2"></i>').data('status', 1);
 
-                            Swal.fire({
-                                title: 'Success!',
-                                text: 'Slider activated successfully!',
-                                icon: 'success',
-                                confirmButtonText: 'OK',
-                                timer: 2000
-                            });
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'Slider activated successfully!',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK',
+                                    timer: 2000
+                                });
 
                         } else {
                             $('a[data-id="' + sliderId + '"]').html('<i class="fas fa-toggle-off fs-2"></i>').data('status', 0);

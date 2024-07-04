@@ -907,7 +907,7 @@
             e.preventDefault();
 
             let cuponButton = document.getElementById('cuponButton');
-            let preloader   = document.getElementById('preloader')
+            let preloader   = document.getElementById('preloader');
 
             cuponButton.disabled = true;
             preloader.classList.remove('d-none');
